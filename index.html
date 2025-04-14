@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - E-Commerce</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .nav {
+            margin-bottom: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .nav a:hover {
+            background: #0056b3;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            background: white;
+            border-radius: 8px;
+            width: 200px;
+        }
+
+        .product img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 8px;
+        }
+
+        button {
+            background: green;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: darkgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Our E-Commerce Store</h1>
+
+    <div class="nav">
+        <a href="cart.html">View Cart</a>
+        <a href="checkout.html">Checkout</a>
+    </div>
+
+    <div id="product-list">
+        <!-- Products will be inserted here by JavaScript -->
+    </div>
+
+    <script>
+        // Hardcoded product list with images (mocked for now)
+        const products = [
+            { 
+                productID: "1", 
+                productName: "Laptop", 
+                price: 1000, 
+                imageUrl: "https://p1-ofp.static.pub//fes/cms/2025/02/17/gqqhsfks155sz2453m4nqpvq0s43nj237979.png"
+            },
+            { 
+                productID: "2", 
+                productName: "Phone", 
+                price: 500, 
+                imageUrl: "https://static.skyassets.com/contentstack/assets/blt143e20b03d72047e/blt421b5c5318c15f83/6501b50cdc211726e3c3158c/Sky_Mobile_PDP1_iPhone15Pro_Black_Titanium-PreOrder.png?imageManager=true&impolicy=resize&width=1000" 
+            },
+            { 
+                productID: "3", 
+                productName: "Headphones", 
+                price: 100, 
+                imageUrl: "https://www.headphonezone.in/cdn/shop/files/Headphone-Zone-CCA-CST-gold-01.jpg?v=1736490315&width=800" 
+            },
+            { 
+                productID: "4", 
+                productName: "Smartwatch", 
+                price: 250, 
+                imageUrl: "https://www.bhphotovideo.com/images/images2500x2500/ematic_esw454w_smart_watch_1039958.jpg" 
+            }
+        ];
+
+        function displayProducts() {
+            const productList = document.getElementById("product-list");
+            productList.innerHTML = ""; // Clear old products if needed
+
+            products.forEach(product => {
+                const productDiv = document.createElement("div");
+                productDiv.className = "product";
+                productDiv.innerHTML = `
+                    <img src="${product.imageUrl}" alt="${product.productName}">
+                    <h3>${product.productName}</h3>
+                    <p>Price: $${product.price}</p>
+                    <button onclick="addToCart('${product.productName}', ${product.price})">Add to Cart</button>
+                `;
+                productList.appendChild(productDiv);
+            });
+        }
+
+        function addToCart(product, price) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push({ product, price });
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(product + " added to cart!");
+        }
+
+        // Call on page load
+        displayProducts();
+    </script>
+
+</body>
+</html>
