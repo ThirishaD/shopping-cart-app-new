@@ -70,6 +70,9 @@
 
     <h1>Welcome to Our E-Commerce Store</h1>
 
+    <!-- ✅ Added Message Banner -->
+    <div id="message" style="display:none; background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;"></div>
+
     <div class="nav">
         <a href="cart.html">View Cart</a>
         <a href="checkout.html">Checkout</a>
@@ -80,7 +83,7 @@
     </div>
 
     <script>
-        // Hardcoded product list with images (mocked for now)
+        // Hardcoded product list
         const products = [
             { 
                 productID: "1", 
@@ -110,7 +113,7 @@
 
         function displayProducts() {
             const productList = document.getElementById("product-list");
-            productList.innerHTML = ""; // Clear old products if needed
+            productList.innerHTML = "";
 
             products.forEach(product => {
                 const productDiv = document.createElement("div");
@@ -129,10 +132,16 @@
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
             cart.push({ product, price });
             localStorage.setItem("cart", JSON.stringify(cart));
-            alert(product + " added to cart!");
+
+            const message = document.getElementById("message");
+            message.textContent = `${product} added to cart!`;
+            message.style.display = "block";
+
+            setTimeout(() => {
+                message.style.display = "none";
+            }, 2000);
         }
 
-        // Call on page load
         displayProducts();
     </script>
 
